@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: Alec Damley-Jones
-description: "Hi I'm Alec, and I'm a Data Scientist.  My portfolio focuses on interesting projects I've recently undertaken, with a clear focus on business impact. Please visit my Github & LinkedIn pages (or download my Resume) by using the links below!"
+description: "Hi, I'm Alec, and I'm a Data Scientist.  My portfolio focuses on interesting projects I've recently undertaken, with a clear focus on business impact. Please see the links below for my CV, Github and LinkedIn pages. Thanks for reading!"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -51,5 +51,6 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
