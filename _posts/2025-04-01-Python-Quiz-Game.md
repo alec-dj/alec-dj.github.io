@@ -120,7 +120,7 @@ import random
 
 First, we will define the logic that will make the quiz run at a *category* level first. This way we can test the logic, and if it this works, scale it up. This entails: 
 
-> 1. Define a function so this logic can be called later
+> 1. Defining a function so this logic can be called later
 > 2. Asking the user which difficulty they want to try, and generating an error message if they return an invalid difficulty
 > 3. Randomly selecting a question (under the given category and difficulty constraints)
 > 4. Creating a score object and setting that to 0
