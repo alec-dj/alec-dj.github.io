@@ -13,6 +13,7 @@ Whilst this is a simple version of a quiz game, it begins to show just how easil
 
 # Initial Setup
 
+
 We begin by defining the questions! A dictionary is perfect for the concept of a quiz; dictionaries hold information in the form of key-value pairs, which intuitively connects perfectly with questions and their corresponding answers.
 
 Here we will use a nested dictionary; this will effectively function as a library to be searched through sequentially when different criteria are called during the quiz. At the highest level, each category is a key-value pair (the name of the category and the information within it. Within the category come the difficulty dictionaries (the name of the difficulty and the questions within that). Then, as alluded to above, each question/answer combo has its own dictionary: in this case, the words "question" and "answer" as the two keys to be called on in the game, and the actual answers written as strings as the values.
@@ -20,6 +21,7 @@ Here we will use a nested dictionary; this will effectively function as a librar
 The questions are then entered manually, and so can be modified at any time, while all variables are defined using dynamic logic to allow for changes in either the content of questions, or the number of questions.
 
 An example of this, for the sport category, is below (I won't print the whole codeblock as it is fairly monotonous):
+
 
 ```python
 questions = {
@@ -39,9 +41,11 @@ questions = {
     }
 ```
 
+
 Next, we will define some functions that will be used in our final quiz function that will helo broaden the range of answers accepted by the quiz. For example, a user inputting any of 'Fifteen', '15' and 'fifteen' should be given the same result.
 
 Firstly, we'll create a function called that will clean text, i.e. remove any dependence on capitalisation or punctuation, and leading/trailing spaces:
+
 
 ```python
 # function for allowing for different types of text inputs
@@ -54,7 +58,9 @@ def clean_text(text):
     return text
 ```
 
+
 Then, another function (numeric_number) that turns the written version of any number from 1-1000 into its numeric form:
+
 
 ```python
 def number_to_words(n):  # function that creates a dictionary from 1:n containing numbers in written and numeric form
