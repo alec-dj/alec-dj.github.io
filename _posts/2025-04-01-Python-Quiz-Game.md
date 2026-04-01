@@ -15,9 +15,9 @@ Whilst this is a simple version of a quiz game, it begins to show just how easil
 
 We begin by defining the questions! A dictionary is perfect for the concept of a quiz; dictionaries hold information in the form of key-value pairs, which intuitively connects perfectly with questions and their corresponding answers.
 
-Here we will use a nested dictionary; this will effectively function as a library to be searched through sequentially when different criteria are called during the quiz. At the highest level, each category is a key-value pair (the name of the category and the information within it). Within the category come the difficulty dictionaries (the name of the difficulty and the questions within that). Then, as alluded to above, each question/answer combo has its own dictionary: in this case, the words "question" and "answer" as the two keys to be called on in the game, and the actual answers written as strings as the values.
+Here we will use a nested dictionary; this will effectively function as a library to be searched through sequentially when different criteria are called during the quiz. At the highest level, each category is a key-value pair (the name of the category and the information within it). Within the category come the difficulty dictionaries (the name of the difficulty and the questions within that). Then, as alluded to above, each question/answer combo has its own dictionary: in this case, the words "question" and "answer" as the two keys to be called on in the game, and the actual answers, written as strings, as the values.
 
-The questions are then entered manually, and so can be modified at any time, while all variables are defined using dynamic logic to allow for changes in either the content of questions, or the number of questions.
+The questions are then entered manually, and so can be modified at any time, while all variables are defined using dynamic logic to allow for future changes in either the content or the number of questions.
 
 An example of this, for the sport category, is below (I won't print the whole codeblock as it is fairly monotonous):
 
@@ -36,18 +36,22 @@ questions = {
             {"question": "Who has won the most Formula 1 World Championships?", "answer": "Lewis Hamilton"},
             {"question": "Which country hosted the 2018 Winter Olympics?", "answer": "South Korea"}
         ]
-    }
+    },
+
+"""
+    "geography":  {...
+"""
 ```
 
-Next, we will define some functions that will be used in our final quiz function that will helo broaden the range of answers accepted by the quiz. For example, a user inputting any of 'Fifteen', '15' and 'fifteen' should be given the same result.
+Next, we will define some functions that will be used in our final quiz function that will help to broaden the range of answers accepted by the quiz. For example, a user inputting any of 'Fifteen', '15' and 'fifteen' should be given the same result.
 
 Firstly, we'll create a function called that will clean text, i.e. remove any dependence on capitalisation or punctuation, and leading/trailing spaces:
 
 ```python
 # function for allowing for different types of text inputs
 def clean_text(text):
-    text = text.lower()           # capitalisations/lack of capitalisations won't matter
-    text = text.replace(".", "")  # points/lack of points won't matter
+    text = text.lower()           # capitalisations/lack of won't matter
+    text = text.replace(".", "")  # points/lack of won't matter
     text = text.replace(",", "")  # commas remnoved
     text = text.replace("'", "")  # apostrophes removed
     text = text.strip()           # removes leading and trailing spaces
@@ -143,24 +147,26 @@ def quiz_logic():
         print("Invalid difficulty. Please choose a category again.")
         continue
 
-    selected_questions = questions[category][difficulty]            # searching through questions dict to find the relevant category dict, then the relevant difficulty dict
+    selected_questions = questions[category][difficulty]    # searching through questions dict to find the relevant category dict, then the relevant difficulty dict
+
     random.shuffle(selected_questions)
 
     score = 0
 
-    for q in selected_questions:                                    # ask all qs in category first
+    for q in selected_questions:                             # ask all qs in category first
         answer = input(q["question"] + " ")
-        clean_answer = numeric_number(clean_text(answer))           # cleans user answer
+        clean_answer = numeric_number(clean_text(answer))    # cleans user answer
         acceptable = q["answer"]
 
-        if isinstance(acceptable, str):                             # creating list of acceptable answers in string form
+        if isinstance(acceptable, str):                      # creating list of acceptable answers in string form
             acceptable = [acceptable]
 
-    correct_answer = acceptable[0]                              # returns the first element of the list of acceptable answers
+    correct_answer = acceptable[0]         # returns the first element of the list of acceptable answers
+
     cleaned_acceptables = [numeric_number(clean_text(a)) for a in acceptable]
 
     correct = False
-    for a in cleaned_acceptables:                               # checks answer against acceptables
+    for a in cleaned_acceptables:                            # checks answer against acceptables
         if clean_answer == a:
             correct = True
         elif clean_answer in a:
@@ -181,7 +187,7 @@ Now that we know this works, we can build a repeatable framework that can run th
 
 Firstly, we set up a menu functionality that can continue on to the quiz and has some error handling:
 
-> 1. Define our function, quiz_game, and create menu, and give user the option to play or exit
+> 1. Define our function, quiz_game, create a menu, and give the user the option to play or exit
 > 2. If they choose to play, continue (see next section)
 > 3. If they choose to leave, print exit message, and break loop
 > 4. If they enter an invalid input, print error message and repeat framework
@@ -189,7 +195,7 @@ Firstly, we set up a menu functionality that can continue on to the quiz and has
 ```python
 
 def quiz_game():
-    while True:                                # while True: so continues unless we/user breaks it
+    while True:                           # while True: continues unless we/user breaks it
         print("\n=== QUIZ GAME MENU ===")
         print("1. Play Quiz")
         print("2. Exit")
@@ -221,10 +227,10 @@ Secondly, we can define the logic for when the user continues. This will contain
  if choice == "1":
 
             remaining_categories = list(questions.keys())
-            total_score = 0                                     # total score feature to accumlate user's score over categories
-            completed_categories = 0                            # feature to count categories user has completed
+            total_score = 0               # total score feature to accumlate user's score over categories
+            completed_categories = 0      # feature to count categories user has completed
 
-            while remaining_categories:                         # runs until remaining_categories is empty
+            while remaining_categories:   # runs until remaining_categories is empty
                 print("\nRemaining categories:")
                 for c in remaining_categories:
                     print("-", c)
@@ -238,12 +244,12 @@ Secondly, we can define the logic for when the user continues. This will contain
                     print("Invalid or already completed category.")
                     continue
 
-                quiz_logic()                                                      # run quiz logic from above
+                quiz_logic()               # run quiz logic from above
                     
-                total_score += score                                              # accumulates score after each category loop completed
-                completed_categories += 1                                         # adds category to list of completed categories after each loop
+                total_score += score       # accumulates score after each category loop completed
+                completed_categories += 1  # adds category to list of completed categories after each loop
 
-                remaining_categories.remove(category)                             # then remove category only after category loop
+                remaining_categories.remove(category) # then remove category only after category loop
 
                 if remaining_categories:
                     print("\nReturning to category selection...")
@@ -252,7 +258,7 @@ Secondly, we can define the logic for when the user continues. This will contain
                     print(f"Final total score: {total_score} points out of a maximum possible score of {len(selected_questions)*len(difficulty_points)*len(questions)}!")
                     break
 
-                print(f"\nProgress: {completed_categories}/{len(questions)} categories completed.")  # progress update
+                print(f"\nProgress: {completed_categories}/{len(questions)} categories completed.")
                 print(f"Total score so far: {total_score} points.")
 ```
 
