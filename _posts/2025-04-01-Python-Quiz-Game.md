@@ -38,6 +38,7 @@ questions = {
         ]
     }
 ```
+
 Next, we will define some functions that will be used in our final quiz function that will helo broaden the range of answers accepted by the quiz. For example, a user inputting any of 'Fifteen', '15' and 'fifteen' should be given the same result.
 
 Firstly, we'll create a function called that will clean text, i.e. remove any dependence on capitalisation or punctuation, and leading/trailing spaces:
@@ -51,7 +52,7 @@ def clean_text(text):
     text = text.replace("'", "")  # apostrophes removed
     text = text.strip()           # removes leading and trailing spaces
     return text
-'''
+```
 
 Then, another function (numeric_number) that turns the written version of any number from 1-1000 into its numeric form:
 
@@ -95,23 +96,23 @@ def numeric_number(text):
     if text in number_words:
         return number_words[text]
     return text                   # spits the text back if no match for numbers 1-1000 (avoids errors)
-'''
+```
 
 Then, we'll create a dictionary that allows for a difficulty-based scoring system:
 
-'''python
+```python
 difficulty_points = {
     "easy": 1,
     "medium": 2,
     "hard": 3
 }
-'''
+```
 
 Finally, we'll need the functionality that the 'random' module in Python provides later, so let's import that:
 
-'''python
+```python
 import random
-'''
+```
 
 ---
 
@@ -133,7 +134,7 @@ First, we will define the logic that will make the quiz run at a *category* leve
 
 In terms of code, this looks like:
 
-'''python
+```python
           def quiz_logic():
                 print("\nDifficulty levels: easy, medium, hard. \n\n1 point for each correct answer to an easy question, 2 points for medium, 3 points for hard!")
                 difficulty = input("\nChoose a difficulty: ").lower()
@@ -175,7 +176,7 @@ In terms of code, this looks like:
 
                 print(f"\nYou scored {score} out of {len(selected_questions)*difficulty_points
 
-'''
+```
 
 Now that we know this works, we can build a repeatable framework that can run the above over every category. 
 
@@ -186,7 +187,7 @@ Firstly, we set up a menu functionality that can continue on to the quiz and has
 > 3. If they choose to leave, print exit message, and break loop
 > 4. If they enter an invalid input, print error message and repeat framework
 
-'''python
+```python
 
 def quiz_game():
     while True:                                # while True: so continues unless we/user breaks it
@@ -204,7 +205,7 @@ def quiz_game():
 
         else:
             print("Invalid choice. Please try again.")
-'''
+```
 
 Secondly, we can define the logic for when the user continues. This will contain a while loop that loops over all categories (asking the user if they wish to continue each time), until the categories are used up. Of course, as each category is looped over, the quiz logic that we coded above runs each time.
 
@@ -216,7 +217,7 @@ Secondly, we can define the logic for when the user continues. This will contain
 > 6. If there are remaining_categories, return to the category choice section, if not print an exit statement and the user's final score
 > 7. Print progress update after conditional break statement so it only prints if user continues
 
-'''python
+```python
 
  if choice == "1":
 
@@ -254,11 +255,11 @@ Secondly, we can define the logic for when the user continues. This will contain
 
                 print(f"\nProgress: {completed_categories}/{len(questions)} categories completed.")  # progress update
                 print(f"Total score so far: {total_score} points.")
-'''
+```
 
 We now have everything in place for a simple but flexible, repeatable and fun quiz game! Provided we define the functions and questions above, the quiz itself all together looks like:
 
-'''python
+```python
 
 def quiz_game():
     while True:
@@ -354,7 +355,7 @@ def quiz_game():
 # calling function to run game 
 quiz_game()
 
-'''
+```
 
 For a fun task that's meant as nothing more as a learning tool and hobby, I think this more than serves a purpose!
 
