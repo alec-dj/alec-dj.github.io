@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Creating a Quiz Game with Python
-image: "/posts/Quiz_Game.png"
+image: "/posts/6F846DBD-5B03-4470-B060-8A3107479196.jpeg"
 tags: [Python, Quiz]
 ---
 
