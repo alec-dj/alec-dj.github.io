@@ -135,46 +135,45 @@ First, we will define the logic that will make the quiz run at a *category* leve
 In terms of code, this looks like:
 
 ```python
-          def quiz_logic():
-                print("\nDifficulty levels: easy, medium, hard. \n\n1 point for each correct answer to an easy question, 2 points for medium, 3 points for hard!")
-                difficulty = input("\nChoose a difficulty: ").lower()
+def quiz_logic():
+    print("\nDifficulty levels: easy, medium, hard. \n\n1 point for each correct answer to an easy question, 2 points for medium, 3 points for hard!")
+    difficulty = input("\nChoose a difficulty: ").lower()
 
-                if difficulty not in questions[category]:
-                    print("Invalid difficulty. Please choose a category again.")
-                    continue
+    if difficulty not in questions[category]:
+        print("Invalid difficulty. Please choose a category again.")
+        continue
 
-                selected_questions = questions[category][difficulty]            # searching through questions dict to find the relevant category dict, then the relevant difficulty dict
-                random.shuffle(selected_questions)
+    selected_questions = questions[category][difficulty]            # searching through questions dict to find the relevant category dict, then the relevant difficulty dict
+    random.shuffle(selected_questions)
 
-                score = 0
+    score = 0
 
-                for q in selected_questions:                                    # ask all qs in category first
-                    answer = input(q["question"] + " ")
+    for q in selected_questions:                                    # ask all qs in category first
+        answer = input(q["question"] + " ")
+        clean_answer = numeric_number(clean_text(answer))           # cleans user answer
+        acceptable = q["answer"]
 
-                    clean_answer = numeric_number(clean_text(answer))           # cleans user answer
+        if isinstance(acceptable, str):                             # creating list of acceptable answers in string form
+            acceptable = [acceptable]
 
-                    acceptable = q["answer"]
-                    if isinstance(acceptable, str):                             # creating list of acceptable answers in string form
-                        acceptable = [acceptable]
+    correct_answer = acceptable[0]                              # returns the first element of the list of acceptable answers
+    cleaned_acceptables = [numeric_number(clean_text(a)) for a in acceptable]
 
-                    correct_answer = acceptable[0]                              # returns the first element of the list of acceptable answers
+    correct = False
+    for a in cleaned_acceptables:                               # checks answer against acceptables
+        if clean_answer == a:
+            correct = True
+        elif clean_answer in a:
+            correct = True
 
-                    cleaned_acceptables = [numeric_number(clean_text(a)) for a in acceptable]
+    if correct:
+        print("Correct!")
+        score += difficulty_points[difficulty]   # difficulty-based scoring counter
 
-                    correct = False
-                    for a in cleaned_acceptables:                               # checks answer against acceptables
-                        if clean_answer == a:
-                            correct = True
-                        elif clean_answer in a:
-                            correct = True
+    else:
+        print(f"Incorrect. The correct answer was {correct_answer}.")
 
-                    if correct:
-                        print("Correct!")
-                        score += difficulty_points[difficulty]   # difficulty-based scoring counter
-                    else:
-                        print(f"Incorrect. The correct answer was {correct_answer}.")
-
-                print(f"\nYou scored {score} out of {len(selected_questions)*difficulty_points
+print(f"\nYou scored {score} out of {len(selected_questions)*difficulty_points
 
 ```
 
